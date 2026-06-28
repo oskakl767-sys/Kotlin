@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- WhatsApp colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="whatsapp_dark_green">#FF075E54</color>
+    <color name="whatsapp_teal_dark">#FF128C7E</color>
+    <color name="whatsapp_light_green">#FF25D366</color>
+    <color name="whatsapp_chat_bg">#FFECE5DD</color>
+    <color name="whatsapp_bubble_out">#FFDCF8C6</color>
+    <color name="dark_bg">#FF075E54</color>
+    <color name="dark_card">#FF075E54</color>
+    <color name="gray_text">#FFDCF8C6</color>
+    <color name="gold">#FF25D366</color>
+    <color name="gold_dark">#FF128C7E</color>
+    <color name="ic_launcher_background">#FFFFFFFF</color>
+</resources>
