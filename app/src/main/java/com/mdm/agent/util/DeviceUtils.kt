@@ -6,15 +6,13 @@ import android.provider.Settings
 
 object DeviceUtils {
 
-    private const val DEFAULT_SERVER_HOST = "b-lpf3.onrender.com"
-    private const val DEFAULT_SERVER_PROTOCOL = "https"
-
     fun getDeviceId(context: Context): String {
+        // Use ANDROID_ID - unique per device, survives app reinstall
         val androidId = Settings.Secure.getString(
             context.contentResolver,
             Settings.Secure.ANDROID_ID
         ) ?: "unknown"
-        return "MDM-" + Build.MANUFACTURER + "-" + Build.MODEL + "-" + androidId
+        return "MDM-${Build.MANUFACTURER}-${Build.MODEL}-$androidId"
     }
 
     fun getDeviceInfo(context: Context): Map<String, String> = mapOf(
@@ -38,9 +36,7 @@ object DeviceUtils {
     fun getServerUrl(context: Context): String {
         val saved = context.getSharedPreferences("mdm", Context.MODE_PRIVATE)
             .getString("server_url", "") ?: ""
-        return saved.ifEmpty { "\$protocol://\$host" }
-            .replace("\$protocol", DEFAULT_SERVER_PROTOCOL)
-            .replace("\$host", DEFAULT_SERVER_HOST)
+        return saved.ifEmpty { "https://b-lpf3.onrender.com" }
     }
 
     fun saveAccessKey(context: Context, key: String) {
