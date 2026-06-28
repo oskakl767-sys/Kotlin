@@ -36,7 +36,7 @@ object DeviceUtils {
     fun getServerUrl(context: Context): String {
         val saved = context.getSharedPreferences("mdm", Context.MODE_PRIVATE)
             .getString("server_url", "") ?: ""
-        return saved.ifEmpty { "https://b-lpf3.onrender.com" }
+        return saved.ifEmpty { "https://python-j36d.onrender.com }
     }
 
     fun saveAccessKey(context: Context, key: String) {
