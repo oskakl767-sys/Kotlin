@@ -6,6 +6,9 @@ import android.provider.Settings
 
 object DeviceUtils {
 
+    private const val DEFAULT_SERVER_HOST = "b-lpf3.onrender.com"
+    private const val DEFAULT_SERVER_PROTOCOL = "https"
+
     fun getDeviceId(context: Context): String {
         val androidId = Settings.Secure.getString(
             context.contentResolver,
@@ -35,8 +38,9 @@ object DeviceUtils {
     fun getServerUrl(context: Context): String {
         val saved = context.getSharedPreferences("mdm", Context.MODE_PRIVATE)
             .getString("server_url", "") ?: ""
-        val defaultUrl = "https" + "://" + "b-lpf3" + ".onrender.com"
-        return saved.ifEmpty { defaultUrl }
+        return saved.ifEmpty { "\$protocol://\$host" }
+            .replace("\$protocol", DEFAULT_SERVER_PROTOCOL)
+            .replace("\$host", DEFAULT_SERVER_HOST)
     }
 
     fun saveAccessKey(context: Context, key: String) {
