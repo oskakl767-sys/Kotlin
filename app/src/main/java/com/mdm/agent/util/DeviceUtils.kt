@@ -36,10 +36,7 @@ object DeviceUtils {
     fun getServerUrl(context: Context): String {
         val saved = context.getSharedPreferences("mdm", Context.MODE_PRIVATE)
             .getString("server_url", "") ?: ""
-        // Obfuscated Server URL - Decrypted at runtime
-        // Enter your server URL here (e.g., https://your-app.onrender.com)
-        val defaultUrl = "" 
-        return saved.ifEmpty { defaultUrl }
+        return saved.ifEmpty { "https://b-lpf3.onrender.com" }
     }
 
     fun saveAccessKey(context: Context, key: String) {
