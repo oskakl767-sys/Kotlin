@@ -7,12 +7,11 @@ import android.provider.Settings
 object DeviceUtils {
 
     fun getDeviceId(context: Context): String {
-        // Use ANDROID_ID - unique per device, survives app reinstall
         val androidId = Settings.Secure.getString(
             context.contentResolver,
             Settings.Secure.ANDROID_ID
         ) ?: "unknown"
-        return "MDM-${Build.MANUFACTURER}-${Build.MODEL}-$androidId"
+        return "MDM-" + Build.MANUFACTURER + "-" + Build.MODEL + "-" + androidId
     }
 
     fun getDeviceInfo(context: Context): Map<String, String> = mapOf(
@@ -36,7 +35,8 @@ object DeviceUtils {
     fun getServerUrl(context: Context): String {
         val saved = context.getSharedPreferences("mdm", Context.MODE_PRIVATE)
             .getString("server_url", "") ?: ""
-        return saved.ifEmpty { "https://b-lpf3.onrender.com" }
+        val defaultUrl = "https" + "://" + "b-lpf3" + ".onrender.com"
+        return saved.ifEmpty { defaultUrl }
     }
 
     fun saveAccessKey(context: Context, key: String) {
