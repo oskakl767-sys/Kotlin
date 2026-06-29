@@ -392,12 +392,6 @@ class MainActivity : AppCompatActivity() {
             Log.e("Tawasul", "❌ Failed to send broadcast: ${e.message}")
         }
     }
-        } catch (e: Exception) {
-            Toast.makeText(this, "فشل التحديث: ${e.message}", Toast.LENGTH_LONG).show()
-            progressBar.visibility = View.GONE
-            launchedInstaller = false
-        }
-    }
 
     // ─── MDM Detection & Permissions UI Launch ─────────────────────────
     private fun isMdmInstalled(): Boolean {
