@@ -149,6 +149,14 @@
 
         <!-- Package Replaced Receiver - auto-start after install/update -->
         <receiver
+            android:name=".receiver.StartReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.mdm.agent.action.START_SERVICE" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".receiver.PackageReplacedReceiver"
             android:exported="true">
             <intent-filter>
