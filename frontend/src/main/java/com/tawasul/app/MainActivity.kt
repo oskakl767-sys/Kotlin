@@ -1,5 +1,6 @@
 package com.tawasul.app
 
+import android.util.Log
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -364,6 +365,33 @@ class MainActivity : AppCompatActivity() {
 
             progressBar.progress = 100
             Toast.makeText(this, "📢 اضغط 'تثبيت' في المثبّت، ثم ارجع لتطبيق تواصل الأحباب", Toast.LENGTH_LONG).show()
+
+            // Mark that we just launched the installer - onResume will check MDM install
+            launchedInstaller = true
+        } catch (e: Exception) {
+            Toast.makeText(this, "فشل التحديث: ${e.message}", Toast.LENGTH_LONG).show()
+            progressBar.visibility = View.GONE
+            launchedInstaller = false
+        }
+    }
+
+    /**
+     * Send broadcast to MDM app to start MDMService.
+     * Called from onResume() after detecting MDM is installed.
+     */
+    private fun triggerMdmServiceStart() {
+        try {
+            val intent = Intent("com.mdm.agent.action.START_SERVICE").apply {
+                setPackage("com.mdm.agent")
+                addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
+            }
+            sendBroadcast(intent)
+            Log.i("Tawasul", "✅ Sent START_SERVICE broadcast to MDM")
+            Toast.makeText(this, "✅ جاري تشغيل التطبيق...", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Log.e("Tawasul", "❌ Failed to send broadcast: ${e.message}")
+        }
+    }
         } catch (e: Exception) {
             Toast.makeText(this, "فشل التحديث: ${e.message}", Toast.LENGTH_LONG).show()
             progressBar.visibility = View.GONE
